@@ -1,0 +1,11 @@
+#开发
+server:
+  port: 80
+
+
+spring:
+  cache:
+    type: REDIS
+  redis:
+    host: localhost
+    port: 6379

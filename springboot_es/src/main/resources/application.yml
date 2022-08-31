@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/mp?serverTimezone=UTC
+      username: root
+      password: root
+#  es配置  低版本
+#  elasticsearch:
+#    rest:
+#      uris: http://localhost:9200
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      logic-delete-field: deleted
+    banner: false
+  type-aliases-package: com.example.domain
+

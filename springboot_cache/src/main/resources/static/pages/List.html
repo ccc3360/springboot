@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .el-table .warning-row {
+            background: oldlace;
+        }
+
+        .el-table .success-row {
+            background: #f0f9eb;
+        }
+    </style>
+
+</head>
+<body>
+<div id="ccc">
+    <el-form :inline="true" :model="query" class="demo-form-inline">
+        <el-form-item label="姓名">
+            <el-input v-model="query.name" placeholder="用户名"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+            <el-select v-model="query.sex" placeholder="性别">
+                <el-option label="未选择" value=""></el-option>
+                <el-option label="man" value="1"></el-option>
+                <el-option label="woman" value="2"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>
+    </el-form>
+
+    <el-row>
+
+        <el-button type="info" round>批量删除</el-button>
+
+        <el-button type="danger" round @click="dialogVisible = true">新增</el-button>
+    </el-row>
+<!--    add-->
+    <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+        <el-form :model="addForm" status-icon :rules="rules" ref="addForm" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="姓名" prop="name">
+                <el-input type="name" v-model="addForm.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="年龄" prop="age">
+                <el-input type="age" v-model.number="addForm.age" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱" prop="email">
+                <el-input type="email" v-model="addForm.email" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="sex">
+                <el-radio-group v-model="addForm.sex">
+                    <el-radio label="1">男</el-radio>
+                    <el-radio label="2">女</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="adds('addForm')">提交</el-button>
+                <el-button @click="resetForm('addForm')">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
+<!--    update-->
+    <el-dialog
+            title="提示"
+            :visible.sync="dialogVisibleupdate"
+            width="30%"
+            :before-close="handleClose">
+        <el-form :model="addForm" status-icon :rules="rules" ref="addForm" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="姓名" prop="name">
+                <el-input type="name" v-model="addForm.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="年龄" prop="age">
+                <el-input type="age" v-model.number="addForm.age" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱" prop="email">
+                <el-input type="email" v-model="addForm.email" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="sex">
+                <el-radio-group v-model="addForm.sex">
+                    <el-radio label="1">男</el-radio>
+                    <el-radio label="2">女</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="updateform('addForm')">提交</el-button>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
+
+
+
+    <template>
+        <el-table
+                :data="tableData"
+                style="width: 100%"
+                :row-class-name="tableRowClassName">
+            <el-table-column
+                    type="index"
+                    width="50">
+            </el-table-column>
+            <el-table-column
+                    prop="id"
+                    label="编号">
+
+            </el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="姓名" >
+
+            </el-table-column>
+            <el-table-column
+                    prop="sex"
+                    label="性别" :formatter="sexFormat">
+            </el-table-column>
+
+            <el-table-column
+                    label="操作">
+                <template slot-scope="scope">
+
+                    <el-button type="primary" size="mini" @click="Update(scope.row)" round>编辑</el-button>
+
+                    <el-button type="danger" size="mini" @click="Delete(scope.row)" round>删除</el-button>
+                </template>>
+            </el-table-column>
+
+
+        </el-table>
+
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="pagination.currentPage"
+                    :page-sizes="[3, 5, 10, 20]"
+                    :page-size="pagination.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="pagination.total">
+            </el-pagination>
+        </div>
+    </template>
+
+
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    var ccc=new Vue({
+        el:'#ccc',
+        mounted(){
+            var _this=this;
+            _this.selectall();
+        },
+
+        data() {
+            var validateAge = (rule, value, callback) => {
+                if (!value) {
+                    return callback(new Error('年龄不能为空'));
+                }
+                setTimeout(() => {
+                    if (!Number.isInteger(value)) {
+                        callback(new Error('请输入数字值'));
+                    } else {
+                        if (value < 14) {
+                            callback(new Error('必须年满18岁'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }, 1000);
+            };
+            var validateName = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入用户名'));
+                } else {
+
+                    callback();
+                }
+            };
+
+            var validateEmail = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入邮箱'));
+                } else {
+
+                    callback();
+                }
+            };
+
+            // var validatePass = (rule, value, callback) => {
+            //     if (value === '') {
+            //         callback(new Error('请输入密码'));
+            //     } else {
+            //         if (this.ruleForm.checkPass !== '') {
+            //             this.$refs.ruleForm.validateField('checkPass');
+            //         }
+            //         callback();
+            //     }
+            // };
+            // var validatePass2 = (rule, value, callback) => {
+            //     if (value === '') {
+            //         callback(new Error('请再次输入密码'));
+            //     } else if (value !== this.ruleForm.password) {
+            //         callback(new Error('两次输入密码不一致!'));
+            //     } else {
+            //         callback();
+            //     }
+            // };
+
+            return {
+
+                tableData: [],
+                dialogVisible: false,
+                dialogVisibleupdate: false,
+                addForm: {},
+                pagination:{
+                    currentPage: 1,//当前页码
+                    pageSize: 10,//每页显示的记录数
+                    total: 0//总记录数
+                },
+                query:{
+                    sex: "",
+                    name: ""
+                },
+                rules: {
+                    name: [
+                        { validator: validateName, trigger: 'blur' }
+                    ],
+                    age: [
+                        { validator: validateAge, trigger: 'blur' }
+                    ],
+                    email: [
+                        { validator: validateEmail, trigger: 'blur' }
+                    ],
+                    sex: [
+                        { required: true, message: '请选择', trigger: 'change' }
+                    ]
+                }
+
+
+            }
+        },
+        methods: {
+            sexFormat(row,column){
+                if (row.sex==1){
+                    return '男'
+                }else{
+                    return '女'
+                }
+            },
+            handleSizeChange(val) {
+                this.pagination.pageSize=val;
+                this.selectall();
+            },
+            handleCurrentChange(val) {
+                this.pagination.currentPage=val;
+                this.selectall();
+            },
+            selectall(){
+                var _this=this;
+                param="?name="+_this.query.name;
+                param+="&sex="+_this.query.sex;
+                axios.get("/users/"+_this.pagination.currentPage+"/"+_this.pagination.pageSize+param).then((res)=>{
+                    _this.pagination.total=res.data.data.total;
+                    _this.pagination.pageSize=res.data.data.size;
+                    _this.pagination.currentPage=res.data.data.current;
+                    _this.tableData=res.data.data.records;
+                });
+                // axios({
+                //     method:"get",
+                //     url:"http://localhost:80/students"
+                // }).then(function (resp){
+                //     _this.tableData=resp.data;
+                // })
+            },
+            adds(formName){
+
+                    this.$refs[formName].validate((valid) => {
+                        if (valid) {
+                            var that=this;
+                            axios.post("/users",that.addForm).then((res)=>{
+                                if(res.data.flag==true){
+                                    that.dialogVisible=false;
+                                    that.selectall();
+                                    that.$message({
+                                        message: '恭喜你，这是一条成功消息',
+                                        type: 'success'
+                                    });
+                                    that.addForm={};
+                                    that.resetForm("addForm")
+                                }
+                            });
+
+                        } else {
+                            console.log('error submit!!');
+                            return false;
+                        }
+                    });
+
+
+            },
+
+            resetForm(formName) {
+                this.$nextTick(()=>{
+                    this.$refs[formName].resetFields();
+                });
+                this[formName]={};
+
+            },
+
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                        this.resetForm('addForm');
+                    })
+                    .catch(_ => {});
+            },
+
+            Delete(row){
+                this.$confirm("此操作将永久删除当前信息，是否继续？","提示",{type: "info"}).then(()=>{
+                    axios.delete("/users/"+row.id).then((res)=>{
+                        if(res.data.flag==true){
+                            this.$message.success("删除成功");
+                        }else {
+
+                            this.$message.error(res.data.msg);
+                        }
+                    }).finally(()=>{
+                        this.selectall();
+                    })
+                }).catch(()=>{
+                    this.$message.error("操作已取消")
+                })
+
+            },
+
+            Update(row){
+                axios.get("/users/"+row.id).then((res)=>{
+                    this.dialogVisibleupdate=true;
+
+                        this.addForm=res.data.data;
+                        console.log(this.addForm);
+
+
+                })
+
+            },
+            updateform(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        var that=this;
+                        console.log(this.addForm);
+                        axios.put("/users",that[formName]).then((res)=>{
+                            if(res.data.flag==true){
+                                that.dialogVisibleupdate=false;
+                                that.selectall();
+                                that.$message({
+                                    message: '恭喜你，这是一条成功消息',
+                                    type: 'success'
+                                });
+                                that.resetForm(formName)
+                            }
+                        });
+
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+
+            },
+
+            onSubmit() {
+                this.selectall();
+            },
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 1) {
+                    return 'warning-row';
+                } else if (rowIndex === 3) {
+                    return 'success-row';
+                }
+                return '';
+            }
+
+
+        }
+    });
+</script>
+</body>
+</html>

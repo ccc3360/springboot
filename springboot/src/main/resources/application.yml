@@ -1,0 +1,79 @@
+# 应用名称
+#spring:
+#  profiles:
+#    active: dev
+#    include: devDB,devMP  #先按顺序执行include中的，在执行active
+#2.4版本后使用group替代inlucde
+spring:
+  profiles:
+    active: dev
+    group:
+      "dev": devDB,devMP
+      "pro": proDB,proMP
+#先执行active  在顺序执行group对应于active的一组配置文件
+  devtools:
+    restart:
+      #设置不参与热部署的目录
+      exlucde: static/**
+      #关闭热部署
+      enabled: false
+
+
+
+  #  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/mp?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+#    username: root
+#    password: root
+#    type: com.alibaba.druid.pool.DruidDataSource
+
+  main:
+    banner-mode: off
+
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  global-config:
+#    db-config:
+#      logic-delete-value: 1
+#      logic-not-delete-value: 0
+#      logic-delete-field: deleted
+#    banner: false
+#  type-enums-package: com.example.enums
+#  type-aliases-package: com.example.domain
+
+## 应用服务 WEB 访问端口
+#---
+##开发
+#spring:
+#  profiles: dev
+#server:
+#  port: 80
+#---
+##过时格式
+##生成
+#spring:
+#  profiles: pro
+#server:
+#  port: 81
+#---
+##测试
+#spring:
+#  config:
+#    activate:
+#      on-profile: test
+#server:
+#  port: 8080
+
+
+test:
+  ipaddress: 192.168.0.1
+  port: 2345
+  timeout: -1
+  user:
+    name: ${random.value}
+    age:  ${random.int}
+    uuid: ${random.uuid}
+    publishTime: ${random.long}
+
+

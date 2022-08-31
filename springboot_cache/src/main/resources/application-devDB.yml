@@ -1,0 +1,43 @@
+#导入druid
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/mp?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+#    username: root
+#    password: root
+#    type: com.alibaba.druid.pool.DruidDataSource
+
+
+#导入了druid的starter
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/mp?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: root
+
+##  默认的hikari数据源,------url放在hikari外侧
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/mp?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+#    hikari:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      username: root
+#      password: root
+##      最大活动时间
+#      max-lifetime:
+##      最大连接池数量
+#      maximum-pool-size:
+
+#springboot提供了三种内内嵌数据库：H2、HSQL、Derby
+#H2
+#spring:
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
+
+
+
+

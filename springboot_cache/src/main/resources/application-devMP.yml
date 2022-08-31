@@ -1,0 +1,15 @@
+mybatis-plus:
+  configuration:
+    #打开sql日志输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      logic-delete-field: deleted
+    banner: false
+  type-enums-package: com.example.enums
+  type-aliases-package: com.example.domain
+
+
+
