@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "cartoon",
+      "type": "com.demo.bean.CartoonProperties",
+      "sourceType": "com.demo.bean.CartoonProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cartoon.cat",
+      "type": "com.demo.bean.Cat",
+      "sourceType": "com.demo.bean.CartoonProperties"
+    },
+    {
+      "name": "cartoon.mouse",
+      "type": "com.demo.bean.Mouse",
+      "sourceType": "com.demo.bean.CartoonProperties"
+    }
+  ],
+  "hints": []
+}
