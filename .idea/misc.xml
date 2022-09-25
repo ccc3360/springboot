@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/springboot_jetcache/pom.xml" />
         <option value="$PROJECT_DIR$/springboot_redis/pom.xml" />
         <option value="$PROJECT_DIR$/springboot_bean/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot_bean_load/pom.xml" />
       </list>
     </option>
   </component>
