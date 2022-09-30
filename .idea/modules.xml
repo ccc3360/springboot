@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/springboot_bean_load/springboot_bean_load.iml" filepath="$PROJECT_DIR$/springboot_bean_load/springboot_bean_load.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_bean_properties/springboot_bean_properties.iml" filepath="$PROJECT_DIR$/springboot_bean_properties/springboot_bean_properties.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_cache/springboot_cache.iml" filepath="$PROJECT_DIR$/springboot_cache/springboot_cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot_email/springboot_email.iml" filepath="$PROJECT_DIR$/springboot_email/springboot_email.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_es/springboot_es.iml" filepath="$PROJECT_DIR$/springboot_es/springboot_es.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_jetcache/springboot_jetcache.iml" filepath="$PROJECT_DIR$/springboot_jetcache/springboot_jetcache.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_redis/springboot_redis.iml" filepath="$PROJECT_DIR$/springboot_redis/springboot_redis.iml" />
