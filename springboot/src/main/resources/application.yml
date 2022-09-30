@@ -18,6 +18,15 @@ spring:
       #关闭热部署
       enabled: false
 
+tools:
+  ip:
+    cycle: 1
+    model: "simple"
+    reset: false
+
+
+
+
 
 
   #  datasource:

@@ -1,7 +1,11 @@
 cartoon:
-#  cat:
-##    name: tom
-#    age: 1
-#  mouse:
-##    name: jerry
-#    age: 1
+  cat:
+#    name: tom
+    age: 1
+  mouse:
+#    name: jerry
+    age: 1
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration

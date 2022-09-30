@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/springboot_bean/pom.xml" />
         <option value="$PROJECT_DIR$/springboot_bean_load/pom.xml" />
         <option value="$PROJECT_DIR$/springboot_bean_properties/pom.xml" />
+        <option value="$PROJECT_DIR$/ip_spring_boot_starter/pom.xml" />
       </list>
     </option>
   </component>

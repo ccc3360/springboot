@@ -1,0 +1,46 @@
+{
+  "groups": [
+    {
+      "name": "tools.ip",
+      "type": "cn.example.ip_spring_boot_starter.ipProperties.Ipproperties",
+      "sourceType": "cn.example.ip_spring_boot_starter.ipProperties.Ipproperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "tools.ip.cycle",
+      "type": "java.lang.Long",
+      "description": "日志显示周期",
+      "sourceType": "cn.example.ip_spring_boot_starter.ipProperties.Ipproperties",
+      "defaultValue": 5
+    },
+    {
+      "name": "tools.ip.model",
+      "type": "java.lang.String",
+      "description": "日志输出模式 detail 详细模式 simple 极简模式",
+      "sourceType": "cn.example.ip_spring_boot_starter.ipProperties.Ipproperties"
+    },
+    {
+      "name": "tools.ip.reset",
+      "type": "java.lang.Boolean",
+      "description": "是否周期内重置数据",
+      "sourceType": "cn.example.ip_spring_boot_starter.ipProperties.Ipproperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": [
+    {
+      "name": "tools.ip.model",
+      "values": [
+        {
+          "value": "detail",
+          "description": "详细模式."
+        },
+        {
+          "value": "simple",
+          "description": "极简模式."
+        }
+      ]
+    }
+  ]
+}

@@ -5,3 +5,7 @@ cartoon:
   mouse:
 #    name: jerry
     age: 1
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration

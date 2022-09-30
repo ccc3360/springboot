@@ -1,9 +1,11 @@
 package com.example.Controller;
 
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.Controller.utils.Result;
 import com.example.domain.TUser;
 import com.example.service.TUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Slf4j
 public class TUserController {
     @Autowired
     private TUserService tUserService;
+
 
     @GetMapping
     public Result getall(){
@@ -40,6 +44,9 @@ public class TUserController {
 
     @GetMapping("{currentPage}/{Pagesize}")
     public Result getPage(@PathVariable Integer currentPage,@PathVariable Integer Pagesize,TUser tUser){
+
+//        ipCountService.count();
+
         IPage<TUser> page = tUserService.getPage(currentPage, Pagesize,tUser);
         if(currentPage>page.getPages()){
             page=tUserService.getPage((int)page.getPages(),Pagesize,tUser);
